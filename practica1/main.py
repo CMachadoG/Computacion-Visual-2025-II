@@ -16,7 +16,7 @@ objpoints = [] # Puntos 3D
 imgpoints = [] # Puntos 2D
 
 # Cargar imágenes del tablero
-images = glob.glob('chessboard/*.jpg') + glob.glob('chessboard/*.jpeg')
+images = glob.glob('practica1/chessboard/*.jpg') + glob.glob('practica1/chessboard/*.jpeg')
 print("Imágenes encontradas:", len(images))
 
 for fname in images:
@@ -46,4 +46,4 @@ h, w = img.shape[:2]
 newcameramtx, roi = cv2.getOptimalNewCameraMatrix(mtx, dist, (w,h), 1, (w,h))
 
 dst = cv2.undistort(img, mtx, dist, None, newcameramtx)
-cv2.imwrite('calibrated_result.jpg', dst)
+cv2.imwrite('practica1/calibrated_result.jpg', dst)
