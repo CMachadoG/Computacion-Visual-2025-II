@@ -3,7 +3,7 @@
 
 **Autor:** Cristian David Machado Guzman
 
-**Fecha:** Octubre de 2025  
+**Fecha:** 19 de Octubre de 2025  
 
 ---
 
