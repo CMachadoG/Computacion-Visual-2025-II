@@ -9,10 +9,11 @@
 
 ## Resumen del Taller
 
-Este taller integra los conceptos principales de la **computación visual y los gráficos 3D**, abordando desde la jerarquía de transformaciones y proyecciones hasta la percepción visual mediante filtros, bordes, segmentación y análisis de color.  
-El objetivo general es **comprender cómo se combinan los procesos de visión artificial con los fundamentos de modelado y animación 3D**, aplicando transformaciones, filtrado digital, análisis de formas y manipulación de imágenes a nivel de píxel.
+Este taller aborda los fundamentos esenciales de la computación visual aplicada dentro del contexto de los gráficos digitales y el procesamiento de imágenes. A través de los ejercicios desarrollados (2, 3, 4 y 10), se exploran conceptos clave como la detección y seguimiento visual, la segmentación mediante umbrales y contornos, la manipulación directa de matrices de píxeles y el análisis de modelos de color y percepción visual.
 
-Los ejercicios seleccionados exploran tanto la parte **geométrica (Three.js)** como la **visual (OpenCV + NumPy)**, mostrando un panorama completo de la relación entre visión por computador y gráficos tridimensionales.
+El propósito principal es comprender cómo los sistemas digitales interpretan, transforman y representan la información visual, utilizando librerías como OpenCV, NumPy y Matplotlib para el procesamiento, comparación y visualización de resultados.
+
+De esta forma, el taller consolida la relación entre la visión por computador y la percepción humana, permitiendo experimentar con técnicas que son la base de áreas como la inteligencia artificial visual, el modelado digital y el procesamiento automatizado de imágenes.
 
 ---
 
