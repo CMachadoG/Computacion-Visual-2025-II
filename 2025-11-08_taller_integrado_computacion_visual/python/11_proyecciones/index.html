@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Proyecciones 3D – Perspectiva vs Ortográfica</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: #111; }
+        #btnCam {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: #222;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+<button id="btnCam">Cambiar cámara</button>
+
+<script type="module">
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.158/build/three.module.js";
+
+// ---------- RENDERER ----------
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// ---------- ESCENA ----------
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x111111);
+
+// ---------- PUNTOS 3D ----------
+const N = 900;
+const positions = new Float32Array(N * 3);
+
+for (let i = 0; i < N; i++) {
+    positions[i*3]   = THREE.MathUtils.randFloatSpread(6);  // x
+    positions[i*3+1] = THREE.MathUtils.randFloatSpread(4);  // y
+    positions[i*3+2] = THREE.MathUtils.randFloat(1, 8);     // z (profundidad)
+}
+
+const geometry = new THREE.BufferGeometry();
+geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+
+// Shader simple: punto coloreado según la profundidad Z
+const material = new THREE.ShaderMaterial({
+    uniforms: {},
+    vertexShader: `
+        varying float vDepth;
+        void main() {
+            vDepth = position.z;
+            gl_PointSize = 5.0;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+    `,
+    fragmentShader: `
+        varying float vDepth;
+        void main() {
+            float d = (vDepth - 1.0) / 7.0;
+            gl_FragColor = vec4(d, 0.5 * (1.0 - d), 1.0 - d, 1.0);
+        }
+    `
+});
+
+const points = new THREE.Points(geometry, material);
+scene.add(points);
+
+// ---------- CÁMARAS ----------
+const aspect = window.innerWidth / window.innerHeight;
+
+const camPersp = new THREE.PerspectiveCamera(60, aspect, 0.1, 100);
+camPersp.position.set(0, 0, 10);
+
+const camOrtho = new THREE.OrthographicCamera(
+    -5 * aspect, 5 * aspect,
+    5, -5,
+    0.1, 100
+);
+camOrtho.position.set(0, 0, 10);
+
+let activeCamera = camPersp;
+
+// ---------- BOTÓN DE CAMBIO ----------
+document.getElementById("btnCam").onclick = () => {
+    activeCamera = (activeCamera === camPersp) ? camOrtho : camPersp;
+    console.log("Cámara:", activeCamera instanceof THREE.PerspectiveCamera ? "Perspectiva" : "Ortográfica");
+};
+
+// ---------- LOOP DE ANIMACIÓN ----------
+function animate() {
+    requestAnimationFrame(animate);
+
+    // rotación suave para visualizar profundidad
+    points.rotation.y += 0.002;
+    points.rotation.x += 0.001;
+
+    renderer.render(scene, activeCamera);
+}
+animate();
+
+// ---------- RESPONSIVE ----------
+window.addEventListener("resize", () => {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    camPersp.aspect = window.innerWidth / window.innerHeight;
+    camPersp.updateProjectionMatrix();
+
+    const asp = window.innerWidth / window.innerHeight;
+    camOrtho.left   = -5 * asp;
+    camOrtho.right  =  5 * asp;
+    camOrtho.updateProjectionMatrix();
+});
+</script>
+
+</body>
+</html>
