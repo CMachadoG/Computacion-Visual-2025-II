@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three.js Examen Final</title>
+    <!-- Carga de Tailwind CSS para estilos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos base para el cuerpo y el canvas */
+        body {
+            margin: 0;
+            overflow: hidden; /* Evita barras de desplazamiento */
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        /* El canvas de Three.js es un hijo directo del body */
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        /* Contenedor de botones flotante y centrado */
+        .controls-panel {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Panel de Controles -->
+    <div class="controls-panel flex space-x-4 p-3 bg-gray-800 bg-opacity-70 rounded-xl shadow-2xl">
+        
+        <!-- Botón para Cambio de Cámara -->
+        <button id="btnCam" 
+                class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-150 ease-in-out transform hover:scale-105">
+            Cambiar Cámara
+        </button>
+
+        <!-- Botón para Grabación de GIF (Simulado) -->
+        <button id="btnGrab" 
+                class="px-6 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition duration-150 ease-in-out transform hover:scale-105">
+            GRABAR GIF (Prueba)
+        </button>
+    </div>
+
+    <!-- El script principal debe ser de tipo 'module' para las importaciones de Three.js -->
+    <script type="module" src="./main.js"></script>
+</body>
+</html>
